@@ -1,0 +1,21 @@
+version: '3.3'
+volumes:
+  data:
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    volumes:
+      - data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=AuthLaravel
+  app:
+    image: phpmyadmin/phpmyadmin:5.2
+    links:
+      - db
+    ports:
+      - 81:80
+    environment:
+      - PMA_ARBITRARY=1
